@@ -1,0 +1,10 @@
+{
+    "path_logo_bundesliga": "img/logos/bundesliga" ,
+    "path_logo_seria_a": "img/logos/seria_a" ,
+    "path_logo_ligue_1": "img/logos/ligue_1" ,
+    "path_logo_liga": "img/logos/liga" ,
+    "path_logo_premier_league": "img/logos/premier_league" ,
+    "path_templates" : "img/templates",
+    "path_render": "img/render",
+    "path_font": "font"
+}
