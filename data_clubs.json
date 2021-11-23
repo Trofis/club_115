@@ -6,5 +6,12 @@
     "path_logo_premier_league": "img/logos/premier_league" ,
     "path_templates" : "img/templates",
     "path_render": "img/render",
-    "path_font": "font"
+    "path_font": "font",
+    "leagues": {
+        "Premier League": "England",
+        "Ligue 1": "France",
+        "Serie A":"Italy",
+        "Bundesliga 1":"Germany", 
+        "La Liga":"Spain"
+    }
 }
