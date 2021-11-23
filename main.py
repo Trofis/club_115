@@ -18,13 +18,15 @@ ruda_bold = ImageFont.truetype(data_clubs['path_font']+'/ruda/Ruda-Bold.ttf', 21
 #DRAW IMAGE
 edit_image = ImageDraw.Draw(new_image)
 
+f = open('test.json')
+germany = json.load(f)['germany']
 
 
 start_height = 260
-for i in range(9):
-    edit_image.text((230,start_height), "Bayern Munich", (255,255,255), ruda_bold)
-    size = ruda_bold.getsize("Herta Berlin")
-    edit_image.text((868-size[0],start_height), "Herta Berlin", (255,255,255), ruda_bold)
+for play in germany:
+    edit_image.text((230,start_height), play[3][1], (255,255,255), ruda_bold)
+    size = ruda_bold.getsize(play[4][1])
+    edit_image.text((868-size[0],start_height), play[4][1], (255,255,255), ruda_bold)
     start_height += 85
 
 
