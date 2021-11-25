@@ -6,6 +6,7 @@
     "path_logo_premier_league": "img/logos/premier_league" ,
     "path_templates" : "img/templates",
     "path_render": "img/render",
+    "path_logo_resized": "img/logos_resized",
     "path_font": "font",
     "leagues": {
         "Premier League": "England",
