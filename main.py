@@ -123,6 +123,9 @@ def generate_next_kick_off(ligue):
 
     start_height = 260
     for play in germany:
+        img = Image.open(get_path_img_per_ligue(ligue)+"/"+filename)
+
+        
         new_image.paste(rgba, (145,start_height-15) )
         new_image.paste(rgba, (890,start_height-15) )
 
@@ -139,5 +142,9 @@ def generate_next_kick_off(ligue):
     #SAVE IMAGE
     new_image.save(data_clubs['path_render']+"/bundesliga.png", quality=100)
 
+# First when project is load up, need to create right logos
+#generate_img(Ligues.GERMANY)
 
-generate_img(Ligues.GERMANY)
+# Generate next kick-off
+
+generate_next_kick_off(Ligues.GERMANY)

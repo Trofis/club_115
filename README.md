@@ -1,5 +1,12 @@
 # club_115
 
+# To DO
+
+    - Get data from api [x]
+    - Generate logos in correct size [x]
+    - Generate one calendar []
+    - Generate generic calendar []
+    - Adapt input data from api []
 
 
 ## Getting started
