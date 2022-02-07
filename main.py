@@ -144,7 +144,7 @@ def get_path_img_resized_per_ligue(ligue):
 def generate_next_kick_off(ligue):
     # LOAD IMAGE & COPY
     template = Image.open(
-        data_clubs['path_templates']+"/calendrier_bundesliga.png")
+        data_clubs['path_templates']+"/Calendrier_{}.png".format(ligue.name))
     new_image = template.copy()
 
     # FONT
@@ -189,7 +189,8 @@ def generate_next_kick_off(ligue):
         start_height += 85
 
     # SAVE IMAGE
-    new_image.save(data_clubs['path_render']+"/bundesliga.png", quality=100)
+    new_image.save(data_clubs['path_render'] +
+                   "/{}.png".format(ligue.name), quality=100)
 
 
 # Init project
@@ -205,4 +206,4 @@ generate_img(Ligues.England)
 
 # Generate next kick-off
 
-# generate_next_kick_off(Ligues.Germany)
+generate_next_kick_off(Ligues.France)
