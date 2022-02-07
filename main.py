@@ -20,8 +20,27 @@ class Ligues(Enum):
 
 ################# FUNCTIONS ####################
 
+
+def init():
+    if not os.path.isdir(data_clubs['path_logo_resized_bundesliga']):
+        os.mkdir(data_clubs['path_logo_resized_bundesliga'])
+
+    if not os.path.isdir(data_clubs['path_logo_resized_seria_a']):
+        os.mkdir(data_clubs['path_logo_resized_seria_a'])
+
+    if not os.path.isdir(data_clubs['path_logo_resized_liga']):
+        os.mkdir(data_clubs['path_logo_resized_liga'])
+
+    if not os.path.isdir(data_clubs['path_logo_resized_ligue_1']):
+        os.mkdir(data_clubs['path_logo_resized_ligue_1'])
+
+    if not os.path.isdir(data_clubs['path_logo_resized_premier_league']):
+        os.mkdir(data_clubs['path_logo_resized_premier_league'])
+
 # Remove borders from imgage
 # param : im (obj Image)
+
+
 def trim(im):
     bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
     diff = ImageChops.difference(im, bg)
@@ -71,7 +90,7 @@ def generate_img(ligue):
     # Delete existing render images before generating new ones
     delete_imgs(ligue)
 
-    print("###### GENERATING LOGOS #######")
+    print("###### GENERATING LOGOS {} #######".format(ligue.name))
     for filename in os.listdir(get_path_img_per_ligue(ligue)):
         print(filename)
         img = Image.open(get_path_img_per_ligue(ligue)+"/"+filename)
@@ -91,13 +110,13 @@ def generate_img(ligue):
 # param : ligue (Enum Ligues)
 #
 def get_path_img_per_ligue(ligue):
-    if ligue.Germany:
+    if ligue == Ligues.Germany:
         return data_clubs['path_logo_bundesliga']
-    elif ligue.Spain:
-        return data_clubs['path_logo_seria_a']
-    elif ligue.England:
+    elif ligue == ligue.Spain:
+        return data_clubs['path_logo_liga']
+    elif ligue == ligue.England:
         return data_clubs['path_logo_premier_league']
-    elif ligue.Italy:
+    elif ligue == ligue.Italy:
         return data_clubs['path_logo_seria_a']
     return data_clubs['path_logo_ligue_1']
 
@@ -107,13 +126,13 @@ def get_path_img_per_ligue(ligue):
 
 
 def get_path_img_resized_per_ligue(ligue):
-    if ligue.Germany:
+    if ligue == ligue.Germany:
         return data_clubs['path_logo_resized_bundesliga']
-    elif ligue.Spain:
-        return data_clubs['path_logo_resized_seria_a']
-    elif ligue.England:
+    elif ligue == ligue.Spain:
+        return data_clubs['path_logo_resized_liga']
+    elif ligue == ligue.England:
         return data_clubs['path_logo_resized_premier_league']
-    elif ligue.Italy:
+    elif ligue == ligue.Italy:
         return data_clubs['path_logo_resized_seria_a']
     return data_clubs['path_logo_resized_ligue_1']
 
@@ -173,9 +192,17 @@ def generate_next_kick_off(ligue):
     new_image.save(data_clubs['path_render']+"/bundesliga.png", quality=100)
 
 
+# Init project
+init()
+
 # First when project is load up, need to create right logos
 generate_img(Ligues.Germany)
+generate_img(Ligues.France)
+generate_img(Ligues.Spain)
+generate_img(Ligues.Italy)
+generate_img(Ligues.England)
+
 
 # Generate next kick-off
 
-generate_next_kick_off(Ligues.Germany)
+# generate_next_kick_off(Ligues.Germany)
