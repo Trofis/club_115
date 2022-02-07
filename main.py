@@ -142,6 +142,34 @@ def get_path_img_resized_per_ligue(ligue):
 # param : ligue (Enum Ligues)
 #
 def generate_next_kick_off(ligue):
+    x_left_img = 0
+    x_right_img = 0
+    x_date = 0
+    x_hour = 0
+    x_team_left = 0
+    x_team_right = 0
+    step = 0
+    start_height = 0
+
+    if ligue == Ligues.Germany:
+        x_left_img = 145
+        x_right_img = 890
+        x_date = 35
+        x_hour = 998
+        x_team_left = 220
+        x_team_right = 872
+        step = 15
+        start_height = 260
+    else:
+        x_left_img = 155
+        x_right_img = 900
+        x_date = 45
+        x_hour = 1007
+        x_team_left = 235
+        x_team_right = 882
+        step = 20
+        start_height = 260
+
     # LOAD IMAGE & COPY
     template = Image.open(
         data_clubs['path_templates']+"/Calendrier_{}.png".format(ligue.name))
@@ -151,7 +179,7 @@ def generate_next_kick_off(ligue):
     league_gothic = ImageFont.truetype(
         data_clubs['path_font']+'/league_gothic/LeagueGothic-Regular.otf', 30, layout_engine=ImageFont.LAYOUT_RAQM)
     ruda_bold_teams = ImageFont.truetype(
-        data_clubs['path_font']+'/ruda/Ruda-Bold.ttf', 20, layout_engine=ImageFont.LAYOUT_RAQM)
+        data_clubs['path_font']+'/ruda/Ruda-Bold.ttf', 23, layout_engine=ImageFont.LAYOUT_RAQM)
     ruda_bold_time = ImageFont.truetype(
         data_clubs['path_font']+'/ruda/Ruda-Bold.ttf', 25, layout_engine=ImageFont.LAYOUT_RAQM)
 
@@ -162,7 +190,6 @@ def generate_next_kick_off(ligue):
     f = open('coming_rounds.json')
     Germany = json.load(f)[ligue.name]
 
-    start_height = 260
     for play in Germany:
         img1 = Image.open(get_path_img_resized_per_ligue(
             ligue)+"/"+play["team_name_home"]+".png")
@@ -173,20 +200,24 @@ def generate_next_kick_off(ligue):
         rgba1 = img1.convert("RGBA")
         rgba2 = img2.convert("RGBA")
 
-        new_image.paste(img1, (145, start_height-15), img1)
-        new_image.paste(img2, (890, start_height-15), img2)
+        new_image.paste(img1, (x_left_img, start_height-step), img1)
+        new_image.paste(img2, (x_right_img, start_height-step), img2)
 
         date_time = datetime.fromisoformat(play["event_date"])
-        edit_image.text((35, start_height), "{}".format(
+        edit_image.text((x_date, start_height), "{}".format(
             str(date_time.day)+"/"+str(date_time.month)).upper(), (0, 0, 0), ruda_bold_time)
-        edit_image.text((998, start_height), "{}".format(
+        edit_image.text((x_hour, start_height), "{}".format(
             str(date_time.hour)+":"+str(date_time.minute)).upper(), (0, 0, 0), ruda_bold_time)
-        edit_image.text((220, start_height),
+        edit_image.text((x_team_left, start_height),
                         play["team_name_home"].upper(), (255, 255, 255), ruda_bold_teams)
         size = ruda_bold_teams.getsize(play["team_name_away"].upper())
-        edit_image.text((872-size[0], start_height),
+        edit_image.text((x_team_right-size[0], start_height),
                         play["team_name_away"].upper(), (255, 255, 255), ruda_bold_teams)
-        start_height += 85
+
+        if ligue == Ligues.Germany:
+            start_height += 85
+        else:
+            start_height += 77
 
     # SAVE IMAGE
     new_image.save(data_clubs['path_render'] +
@@ -197,13 +228,13 @@ def generate_next_kick_off(ligue):
 init()
 
 # First when project is load up, need to create right logos
-generate_img(Ligues.Germany)
-generate_img(Ligues.France)
-generate_img(Ligues.Spain)
-generate_img(Ligues.Italy)
-generate_img(Ligues.England)
+# generate_img(Ligues.Germany)
+# generate_img(Ligues.France)
+# generate_img(Ligues.Spain)
+# generate_img(Ligues.Italy)
+# generate_img(Ligues.England)
 
 
 # Generate next kick-off
 
-generate_next_kick_off(Ligues.France)
+generate_next_kick_off(Ligues.England)
