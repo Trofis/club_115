@@ -11,11 +11,11 @@ data_clubs = json.load(f)
 
 
 class Ligues(Enum):
-    GERMANY = 1,
-    SPAIN = 2,
-    ENGLAND = 3,
-    ITALY = 4,
-    FRANCE = 5
+    Germany = 1,
+    Spain = 2,
+    England = 3,
+    Italy = 4,
+    France = 5
 
 
 ################# FUNCTIONS ####################
@@ -91,13 +91,13 @@ def generate_img(ligue):
 # param : ligue (Enum Ligues)
 #
 def get_path_img_per_ligue(ligue):
-    if ligue.GERMANY:
+    if ligue.Germany:
         return data_clubs['path_logo_bundesliga']
-    elif ligue.SPAIN:
+    elif ligue.Spain:
         return data_clubs['path_logo_seria_a']
-    elif ligue.ENGLAND:
+    elif ligue.England:
         return data_clubs['path_logo_premier_league']
-    elif ligue.ITALY:
+    elif ligue.Italy:
         return data_clubs['path_logo_seria_a']
     return data_clubs['path_logo_ligue_1']
 
@@ -107,13 +107,13 @@ def get_path_img_per_ligue(ligue):
 
 
 def get_path_img_resized_per_ligue(ligue):
-    if ligue.GERMANY:
+    if ligue.Germany:
         return data_clubs['path_logo_resized_bundesliga']
-    elif ligue.SPAIN:
+    elif ligue.Spain:
         return data_clubs['path_logo_resized_seria_a']
-    elif ligue.ENGLAND:
+    elif ligue.England:
         return data_clubs['path_logo_resized_premier_league']
-    elif ligue.ITALY:
+    elif ligue.Italy:
         return data_clubs['path_logo_resized_seria_a']
     return data_clubs['path_logo_resized_ligue_1']
 
@@ -141,10 +141,10 @@ def generate_next_kick_off(ligue):
 
     # LOAD DATA
     f = open('coming_rounds.json')
-    germany = json.load(f)['Germany']
+    Germany = json.load(f)[ligue.name]
 
     start_height = 260
-    for play in germany:
+    for play in Germany:
         img1 = Image.open(get_path_img_resized_per_ligue(
             ligue)+"/"+play["team_name_home"]+".png")
 
@@ -174,8 +174,8 @@ def generate_next_kick_off(ligue):
 
 
 # First when project is load up, need to create right logos
-generate_img(Ligues.GERMANY)
+generate_img(Ligues.Germany)
 
 # Generate next kick-off
 
-generate_next_kick_off(Ligues.GERMANY)
+generate_next_kick_off(Ligues.Germany)
