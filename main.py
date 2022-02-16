@@ -98,10 +98,10 @@ def generate_img(ligue):
         #rgba = img.convert("RGBA")
 
         #rgba = transparent(img)
-        resized_img = img.resize((65, 65))
+        img.thumbnail((65, 65))
         # rgba = trim(rgba.resize(
         #    (int(width*ratio), int(height*ratio)), Image.ANTIALIAS))
-        rgba = resized_img.convert("RGBA")
+        rgba = img.convert("RGBA")
 
         rgba.save(get_path_img_resized_per_ligue(ligue)+"/"+filename)
 
@@ -197,11 +197,24 @@ def generate_next_kick_off(ligue):
         img2 = Image.open(get_path_img_resized_per_ligue(
             ligue)+"/"+play["team_name_away"]+".png")
 
+        width1, height1 = img1.size
+        width2, height2 = img2.size
+
         rgba1 = img1.convert("RGBA")
         rgba2 = img2.convert("RGBA")
 
-        new_image.paste(img1, (x_left_img, start_height-step), img1)
-        new_image.paste(img2, (x_right_img, start_height-step), img2)
+        if width1 != 65:
+            new_image.paste(
+                img1, (x_left_img+((65-width1) // 2), start_height-step), img1)
+        else:
+            new_image.paste(
+                img1, (x_left_img, start_height-step), img1)
+        if width2 != 65:
+            new_image.paste(
+                img2, (x_right_img+((65-width2)//2), start_height-step), img2)
+        else:
+            new_image.paste(
+                img2, (x_right_img, start_height-step), img2)
 
         date_time = datetime.fromisoformat(play["event_date"])
         edit_image.text((x_date, start_height), "{}".format(
@@ -228,13 +241,13 @@ def generate_next_kick_off(ligue):
 init()
 
 # First when project is load up, need to create right logos
-# generate_img(Ligues.Germany)
-# generate_img(Ligues.France)
-# generate_img(Ligues.Spain)
-# generate_img(Ligues.Italy)
-# generate_img(Ligues.England)
+generate_img(Ligues.Germany)
+generate_img(Ligues.France)
+generate_img(Ligues.Spain)
+generate_img(Ligues.Italy)
+generate_img(Ligues.England)
 
 
 # Generate next kick-off
 
-generate_next_kick_off(Ligues.England)
+generate_next_kick_off(Ligues.Germany)
